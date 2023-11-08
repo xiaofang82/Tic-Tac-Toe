@@ -84,7 +84,7 @@ function setMan(player, ele, recordStep, manArray){
 
     if (manArray.includes(ele.id)) {
         const imageArray = ['circle-outline-64.png', 'x-mark-64.png'];
-        let checkArray = ['0-1', '1-1' , '2-0'];
+        let checkArray = ['0-2', '1-1' , '2-0'];
         image.src = './assets/image/' + imageArray[player];
         ele.append(image);
         recordStep[player].unshift(ele.id);
