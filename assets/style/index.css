@@ -80,3 +80,39 @@ input[type=button] {
     font-weight: 600px;
     color: red;
 }
+
+.model {
+    position: absolute;
+    height: 200px;
+    width: 300px;
+    background-color: #fffefe;
+    border-radius: 15px;
+    padding: 10px 10px;
+    box-shadow: 2px 0px 6px 2px #6c6b6b8b ;
+    color: red;
+    font-size: 34px;
+    font-weight: 600px;
+    text-align: center;
+    line-height: 200px;
+}
+
+.modal-container {
+    position: absolute;
+    top:0px;
+    right: 0px;
+    visibility: hidden;
+    background-color: #c1c2c597;
+    width: 100%;
+    height: 100%;
+}
+
+.model_show {
+    visibility:visible;
+}
+
+.modal-transform {
+    top: calc(50% - 200px - 20px);
+    right: calc(50% - 150px);
+    transition: transform 1s;
+    transform: translate(0, 15px);
+}

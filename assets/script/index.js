@@ -21,6 +21,8 @@ function create(element,parent=document){
 }
 
 const tic = select('.tic');
+const modalContainer = select('.modal-container');
+const replay = selectById('replay');
 
 initBoard(tic);
 
@@ -33,12 +35,14 @@ initBoard(tic);
 function initBoard(parent, row = 3, colum = 3) {
     const eleRow = new Array();
     const eleColum = Array.from(new Array(3),() => new Array(3));
-    const recordStep = [];
-    const recordStep2 = [];
+    const recordStep = Array.from(new Array(2),() => new Array());
     const manArray = new Array();
-    const player = 0;
-    const playerArray = [select('.player0') ,select('.player1')]
-    playerArray
+    let player = 0;
+    const playerArray = [selectById('player0'), selectById('player1')];
+
+    parent.innerHTML = '';
+    playerArray[player].style.color = 'red';
+    //console.log(playerArray[player].classList);
 
     for(let i = 0; i < row; i++){
         eleRow[i] = create('div');
@@ -51,22 +55,96 @@ function initBoard(parent, row = 3, colum = 3) {
             eleRow[i].append(eleColum[i][j]);
             manArray.push(i + '-' + j);
             onEvent('click', eleColum[i][j], function(event) {
-                setMan(this, recordStep, manArray);
-                player = 1 - player;
+                if(setMan(player, this, recordStep, manArray)) {
+                    playerArray[player].style.color = 'white';
+                    player = 1 - player;
+                    playerArray[player].style.color = 'red';
+                }
             });
         }
     }
     console.log(manArray);
 }
 
-function setMan(ele, recordStep, manArray){
+function setMan(player, ele, recordStep, manArray){
     const image = create('img');
     let indexNo = manArray.indexOf(ele.id);
-    image.src = './assets/image/circle-outline-64.png';
-    ele.append(image);
-    recordStep.push(ele.id);
-    manArray.splice(indexNo, 1);
-    console.log(recordStep);
-    console.log(manArray);
+    let ifend = 0;
+    const modalContainer = document.querySelector('.modal-container');
+    let winContent = 'You Win!';
+
+    //console.log (manArray.includes(ele.id));
+    if (manArray.includes(ele.id)) {
+        const imageArray = ['circle-outline-64.png', 'x-mark-64.png'];
+        let checkArray = ['0-1', '1-1' , '2-0'];
+        image.src = './assets/image/' + imageArray[player];
+        ele.append(image);
+        recordStep[player].unshift(ele.id);
+        manArray.splice(indexNo, 1);
+        if(recordStep[player].length >= 3) {
+            let sameRC = 0;
+            const rowArray = [0,0,0];
+            const columArray = [0,0,0];
+            for(let index in recordStep[player]) {
+                let valueArray = recordStep[player][index].split('-');
+                rowArray[valueArray[0]]++;
+                columArray[valueArray[1]]++;
+                if (valueArray[0] == valueArray[1]){
+                    sameRC++;
+                    console.log(recordStep[player][index]);
+                }
+            }
+            let needCheckArray = recordStep[player];
+            const isInclude = compareArray(needCheckArray,checkArray);
+            if (sameRC >= 3 || isInclude) {
+                ifend = 1;
+            }
+            for(let value of rowArray){
+                if (value == 3)
+                    ifend = 1;
+            }
+            for(let value of columArray){
+                if (value == 3)
+                    ifend = 1;
+            }
+            if(manArray.length <= 0){
+                ifend = 1;
+                winContent = 'Score Draw!';
+            }
+            if(ifend == 1) {
+                const title = selectById('title');
+                title.innerText = winContent;
+                modalContainer.classList.add('model_show');
+                model.classList.add('modal-transform');
+            }
+            console.log(rowArray);
+        }
+        console.log(recordStep);
+        //console.log(manArray);
+        return true;
+    } else {
+        return false;
+    }
 }
 
+function compareArray(arr1, arr2) {
+    return arr2.every(item => arr1.includes(item));
+}
+
+onEvent('click',replay, function(){
+    initBoard(tic);
+});
+
+onEvent('click',window, function(event){
+    if(event.target == modalContainer){
+        modalContainer.classList.remove('model_show');
+        model.classList.remove('modal-transform');
+    }
+});
+
+onEvent('keyup',window, function(event){
+    if(event.key == 'Escape'){
+        modalContainer.classList.remove('model_show');
+        model.classList.remove('modal-transform');
+    }
+})
