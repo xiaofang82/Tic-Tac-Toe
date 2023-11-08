@@ -41,8 +41,8 @@ function initBoard(parent, row = 3, colum = 3) {
     const playerArray = [selectById('player0'), selectById('player1')];
 
     parent.innerHTML = '';
-    playerArray[player].style.color = 'red';
-    //console.log(playerArray[player].classList);
+    playerArray[0].style.color = 'red';
+    playerArray[1].style.color = 'white';
 
     for(let i = 0; i < row; i++){
         eleRow[i] = create('div');
@@ -63,9 +63,18 @@ function initBoard(parent, row = 3, colum = 3) {
             });
         }
     }
-    console.log(manArray);
 }
 
+/**
+ * 
+ * player step and check if win
+ * 
+ * @param {*} player 
+ * @param {*} ele 
+ * @param {*} recordStep 
+ * @param {*} manArray 
+ * @returns 
+ */
 function setMan(player, ele, recordStep, manArray){
     const image = create('img');
     let indexNo = manArray.indexOf(ele.id);
@@ -73,7 +82,6 @@ function setMan(player, ele, recordStep, manArray){
     const modalContainer = document.querySelector('.modal-container');
     let winContent = 'You Win!';
 
-    //console.log (manArray.includes(ele.id));
     if (manArray.includes(ele.id)) {
         const imageArray = ['circle-outline-64.png', 'x-mark-64.png'];
         let checkArray = ['0-1', '1-1' , '2-0'];
@@ -81,6 +89,8 @@ function setMan(player, ele, recordStep, manArray){
         ele.append(image);
         recordStep[player].unshift(ele.id);
         manArray.splice(indexNo, 1);
+
+        //check win
         if(recordStep[player].length >= 3) {
             let sameRC = 0;
             const rowArray = [0,0,0];
@@ -91,7 +101,6 @@ function setMan(player, ele, recordStep, manArray){
                 columArray[valueArray[1]]++;
                 if (valueArray[0] == valueArray[1]){
                     sameRC++;
-                    console.log(recordStep[player][index]);
                 }
             }
             let needCheckArray = recordStep[player];
@@ -117,10 +126,9 @@ function setMan(player, ele, recordStep, manArray){
                 modalContainer.classList.add('model_show');
                 model.classList.add('modal-transform');
             }
-            console.log(rowArray);
+            
         }
-        console.log(recordStep);
-        //console.log(manArray);
+        
         return true;
     } else {
         return false;
