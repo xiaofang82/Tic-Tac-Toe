@@ -1,37 +1,14 @@
-'user strict'
+## Tic-Tac-Toe
 
-function onEvent(event, selector, callback){
-    return selector.addEventListener(event,callback);
-}
+Tic-Tac-Toe game is written by JavaScript, it's a classic two-player board game where player take turns marking a 3x3 grid with their symbols(typically "X" and "O") in a attempt to form a row, column, or diagonal of three of their symbols. The game is played in a web browser and used HTML, CSS, and JavaScript to create the user interface and game logic.
 
-function select(selector,parent = document){
-    return parent.querySelector(selector);
-}
+Player click on the grid to place their symbols, and the game checks for a win or a draw after each move. It provides feedback on the winner or a draw and allows for restarting the game. 
 
-function selectById(selector,parent = document){
-    return parent.getElementById(selector);
-}
+### InitBoard function
 
-function selectAll(selector,parent = document){
-    return [...parent.querySelectorAll(selector)];
-}
+The "initBoard" function is used to initialize the game board at the start of each game. This funciton typically sets up an empty game board, ready for the players to make their moves.
 
-function create(element,parent=document){
-    return parent.createElement(element);
-}
-
-const tic = select('.tic');
-const modalContainer = select('.modal-container');
-const replay = selectById('replay');
-
-initBoard(tic);
-
-/**
- * initial table
- * @param {*} parent 
- * @param {*} row 
- * @param {*} colum 
- */
+```JavaScript
 function initBoard(parent, row = 3, colum = 3) {
     const eleRow = new Array();
     const eleColum = Array.from(new Array(3),() => new Array(3));
@@ -64,17 +41,12 @@ function initBoard(parent, row = 3, colum = 3) {
         }
     }
 }
+```
 
-/**
- * 
- * player step and check if win
- * 
- * @param {*} player 
- * @param {*} ele 
- * @param {*} recordStep 
- * @param {*} manArray 
- * @returns 
- */
+###
+The "setMan" function appears to be responsible for allowing a player to make a move, updating the game board, and checking if the player has won or if the game has ended in a draw in a Tic-tac-toe game.
+
+```JavaScript
 function setMan(player, ele, recordStep, manArray){
     const image = create('img');
     let indexNo = manArray.indexOf(ele.id);
@@ -134,33 +106,6 @@ function setMan(player, ele, recordStep, manArray){
         return false;
     }
 }
-
-/**
- * 
- * compare arr1 entire in the arr2
- * 
- * @param {*} arr1 
- * @param {*} arr2 
- * @returns 
- */
-function compareArray(arr1, arr2) {
-    return arr2.every(item => arr1.includes(item));
-}
-
-onEvent('click',replay, function(){
-    initBoard(tic);
-});
-
-onEvent('click',window, function(event){
-    if(event.target == modalContainer){
-        modalContainer.classList.remove('model_show');
-        model.classList.remove('modal-transform');
-    }
-});
-
-onEvent('keyup',window, function(event){
-    if(event.key == 'Escape'){
-        modalContainer.classList.remove('model_show');
-        model.classList.remove('modal-transform');
-    }
-})
+```
+### Live Demo
+[DEMO LINK](https://xiaofang82.github.io/Tic-Tac-Toe/)
