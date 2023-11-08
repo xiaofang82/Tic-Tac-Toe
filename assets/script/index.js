@@ -116,7 +116,7 @@ function setMan(player, ele, recordStep, manArray){
                 if (value == 3)
                     ifend = 1;
             }
-            if(manArray.length <= 0){
+            if(manArray.length <= 0 && ifend == 0 ){
                 ifend = 1;
                 winContent = 'Score Draw!';
             }
