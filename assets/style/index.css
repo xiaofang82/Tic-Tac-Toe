@@ -1,0 +1,82 @@
+@charset "utf-8";
+@import "./reset.css";
+
+main {
+    overflow:hidden;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    height: 100vh;
+}
+
+.center {
+    display:grid;
+}
+
+.tic {
+    width: 300px;
+    height: 300px; 
+}
+
+.show-infor {
+    width: 100%;
+    display: flex;
+    margin-top: 10px;
+    font-size: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-div {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.show-infor div{
+    margin: 5px;
+}
+
+.image {
+    width: 26px;
+}
+
+.row {
+    margin: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0px;
+}
+
+.column {
+    flex: 1 0 auto;
+    width: calc(33.3333333% - 13.33333px);
+    height: 100px;
+    border: 1px solid #efefef;
+    vertical-align: middle;
+    text-align: center;
+    
+}
+
+.column img {
+    top: calc(50% - 32px);
+    position: relative;
+}
+
+
+input[type=button] {
+    height: 35px;
+    width: 160px;
+    font-size: 15px;
+    border-radius: 5px;
+    cursor:pointer;
+}
+
+.current-player {
+    font-weight: 600px;
+    color: red;
+}

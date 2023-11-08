@@ -1,0 +1,32 @@
+@charset "utf-8";
+
+/*------------------------------------------*/
+/* Reset Style                              */
+/*------------------------------------------*/
+:root {
+    --app-background-color: rgb(114, 150, 182);
+    --app-border-color: #3c3a3a;
+    --app-border-radius:10px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    outline:none;
+    border-style: none;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+html,body {
+    height: 100%;
+}
+
+body {
+    font-family: "Nunito Sans","Open Sans", Arial;
+    line-height: 1.5;
+    margin-inline: auto;
+    background-color: var(--app-background-color);
+    color: #e0dddd;
+    border-radius: 0;
+}
